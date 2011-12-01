@@ -1,0 +1,5 @@
+<application xmlns="http://www.ebay.com/marketplace/raptor/metadata"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ebay.com/marketplace/raptor/metadata http://www.ebay.com/marketplace/raptor/xsd/ApplicationMetadata.xsd">
+	<!-- TODO#EMAC.P1 get a sample application metadta file for testing -->
+</application>
