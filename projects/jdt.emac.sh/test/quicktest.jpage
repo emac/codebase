@@ -1,3 +1,6 @@
 
 System.out.println("a".substring(1));
 // output: 
+
+for(Object o: null){}
+// Can only iterate over an array or an instance of java.lang.Iterable
