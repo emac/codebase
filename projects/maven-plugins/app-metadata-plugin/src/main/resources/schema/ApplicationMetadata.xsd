@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.ebay.com/marketplace/raptor/metadata"
+	attributeFormDefault="unqualified" elementFormDefault="qualified"
+	targetNamespace="http://www.ebay.com/marketplace/raptor/metadata"
+	version="1.0.0">
+
+	<xs:simpleType name="ApplicationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Web">
+				<xs:annotation>
+					<xs:documentation>Web Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Service">
+				<xs:annotation>
+					<xs:documentation>Service Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mobile">
+				<xs:annotation>
+					<xs:documentation>Mobile Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Batch">
+				<xs:annotation>
+					<xs:documentation>Batch Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="LifecycleStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="New">
+				<xs:annotation>
+					<xs:documentation>New State</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Development">
+				<xs:annotation>
+					<xs:documentation>Development State</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Deployed">
+				<xs:annotation>
+					<xs:documentation>Deployed Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Retired">
+				<xs:annotation>
+					<xs:documentation>Retired Application</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="EnvironmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEV">
+				<xs:annotation>
+					<xs:documentation>Dev Environment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="QA">
+				<xs:annotation>
+					<xs:documentation>QA Environment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STG">
+				<xs:annotation>
+					<xs:documentation>Staging Environment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PROD">
+				<xs:annotation>
+					<xs:documentation>Production Environment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="ParamType">
+		<xs:annotation>
+			<xs:documentation>
+				Parameter representing a name/value(s) pair.	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Name of the parameter.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>		
+			<xs:element name="values" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Value(s) of the parameter.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="URLStrategy">
+		<xs:annotation>
+			<xs:documentation>
+				A format by which URL is encoded and decoded by an application with data such as
+				SEO host, domain, locale, SEO string, page, query parameters etc.	
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Name of the URL strategy.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>		
+			<xs:element name="locale" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Locale of the URL strategy.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="env" type="tns:EnvironmentType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Environment for this URL strategy.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="params" type="tns:ParamType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Parameters for this URL strategy.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Page">
+		<xs:annotation>
+			<xs:documentation>
+				Functional unit that takes in request data and outputs response data after performing business logic and data processing.
+ 				Page is unique within an application.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Id of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Name of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Version of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="owner" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Owner of the page (email address of the owner).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desc" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Description of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortName" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Short name of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lifecycleState" type="tns:LifecycleStateType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Lifecycle state of the page.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isAjax" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Flag to indicate whether this is an Ajax page.	
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isDefault" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Flag to indicate whether this is the default page.	
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Application">
+		<xs:annotation>
+			<xs:documentation>
+				An application may be a web application, a mobile application, a service application, or another type of application.
+				Different applications of similar functionality will have distinct Ids and identities.
+				Application is unique globally, identified by an id or an alternative name such as context switching token that
+				can resolve to the unique application at run time.
+				A web application is a logical grouping of pages that represent coherent functionality as a whole.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Id of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Name of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Version of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="tns:ApplicationType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Type of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="owner" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Owner of the application (email address of the owner).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desc" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Description of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="altName" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Alternate name of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lifecycleState" type="tns:LifecycleStateType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Lifecycle state of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urlStrategies" type="tns:URLStrategy" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						URL strategies of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pages" type="tns:Page" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Pages of the application.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ApplicationGroup">
+		<xs:annotation>
+			<xs:documentation>
+				Applications may be grouped based on some common characteristics.
+				Web, mobile and service applications of the same functionality may belong to a group.
+ 			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Id of the application group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Name of the application group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Version of the application group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="owner" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Owner of the application group (email address of the owner).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desc" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Description of the application group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lifecycleState" type="tns:LifecycleStateType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Lifecycle state of the application group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="apps" type="tns:Application" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						Applications in this group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

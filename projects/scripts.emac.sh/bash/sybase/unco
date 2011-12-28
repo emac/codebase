@@ -1,0 +1,14 @@
+#!/bin/bash
+# Created by emac: Mon Aug 6 16:05:00 PDT 2007
+# 
+
+#1.Initilize the path
+fileName=${2%%.java}
+#echo $fileName
+subPath=`echo $fileName | sed s/\\\\./\\\\//g`
+#echo $subPath
+fullPath="/calm/dub/sdmp/src/"$1"/src/"${subPath}.java
+#echo $fullPath
+
+#2.Uncheck out
+ct unco -rm $fullPath

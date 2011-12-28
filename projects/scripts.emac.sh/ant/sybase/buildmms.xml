@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<!-- ================================================= 
+	 Author: bshen 									  
+	 Last update: 03/10/2010 						  
+	 ================================================= -->
+<project name="mms" default="main">
+	<target name="main" description="main" depends="init, download, rebuild.uep, rebuild.server"/>
+	
+	<target name="rebuild.server.ext" description="rebuild server" depends="init, init.ext, rebuild.server"/>
+	
+	<target name="init">
+		<tstamp>
+			<format property="timestamp" pattern="yyyyMMdd" offset="-1" unit="day"/>
+		</tstamp>
+		<property name="base" location="C:/Demo30"/>
+		<property name="eclipse" location="${base}/eclipse"/>
+		<property name="uep" location="${eclipse}/dropins/uep/eclipse"/>
+		<property name="ant.home" location="C:/Downloads/apache-ant-1.7.1"/>		
+		<property name="pattern.uep" value="uep.zip"/>
+		<property name="pattern.bob" value="bob.zip"/>
+		<property name="pattern.server.dir" value="mms-1.5*"/>
+		<property name="pattern.server.file" value="mms-1.5.????.zip"/>
+		<property name="pattern.server.e2e" value="mms-e2e-test-1.5*.zip"/>
+		<property name="pattern.schema" value="mms-schema-1.5*.zip"/>
+		<property name="pattern.codegen" value="mms-client-codegen-1.5*.zip"/>
+		<property name="pattern.adminapi" value="SUPAdminclient-1.5*.zip"/>
+		<property name="pattern.clientapi" value="clientAPI-1.5*.zip"/>
+		<property name="pattern.afxobjectc" value="AfxObjectiveC.templatej.jar"/>
+		<property name="pattern.dsapi" value="sup-ds-dist.zip"/>
+		<property name="pattern.toolingapi" value="com.sybase.uep.tooling.api*"/>
+		<property name="server.username" value="admin@system"/>
+		<property name="server.password" value="Sybase123"/>
+		<property name="djc" value="-Ddjc.home"/>
+		<property name="sup.version" value="1.5.0"/>
+		<property name="build.no" value="1"/>
+	</target>
+	
+	<target name="init.ext">
+		<property name="download.server.succeed" value="true"/>
+	</target>
+	
+	<target name="download" depends="download.clean">		
+		<echo>Build Date: ${timestamp}...</echo>		
+		<ftp server="10.22.103.76" userid="${userid}" password="${password}" remotedir="/remote/epstg/Build/daily_build/uepmain/${timestamp}/UEP_BUILD${build.no}/server/mms/" action="get">
+			<fileset dir="${base}">
+				<include name="${pattern.server.file}"/>
+				<!--include name="${pattern.server.e2e}"/-->
+				<include name="${pattern.schema}"/>
+				<include name="${pattern.codegen}"/>
+				<include name="${pattern.adminapi}"/>
+				<include name="${pattern.clientapi}"/>
+				<include name="${pattern.afxobjectc}"/>
+			</fileset>
+			<!--fileset dir="${base}">
+				<scriptselector language="javascript">
+					self.setSelected(filename.match("mms-1\\.5\\.\\d{4}\\.zip")!=null);
+				</scriptselector>
+			</fileset-->
+		</ftp>
+		<condition property="download.server.succeed">
+			<resourcecount when="eq" count="1">
+				<fileset dir="${base}">
+					<include name="${pattern.server.file}"/>
+				</fileset>
+			</resourcecount>
+		</condition>
+		<echo>Download server: ${download.server.succeed}</echo>
+		<ftp server="10.22.103.76" userid="${userid}" password="${password}" remotedir="/remote/epstg/Build/daily_build/uepmain/${timestamp}/UEP_BUILD${build.no}/server/ds/" action="get">
+			<fileset dir="${base}">
+				<include name="${pattern.dsapi}"/>
+			</fileset>
+		</ftp>
+		<ftp server="10.22.103.76" userid="${userid}" password="${password}" remotedir="/remote/epstg/Build/daily_build/uepmain/${timestamp}/UEP_BUILD${build.no}/eclipse/" action="get">
+			<fileset dir="${base}">
+				<include name="${pattern.uep}"/>
+				<include name="eclipse.log"/>
+				<include name="${pattern.bob}"/>
+			</fileset>
+		</ftp>
+		<condition property="download.uep.succeed">
+			<resourcecount when="eq" count="1">
+				<fileset dir="${base}">
+					<include name="${pattern.uep}"/>
+				</fileset>
+			</resourcecount>
+		</condition>
+		<echo>Download uep.zip: ${download.uep.succeed}</echo>
+	</target>
+	
+	<target name="download.clean">
+		<delete>
+			<fileset dir="${base}">
+				<include name="${pattern.uep}"/>
+				<include name="${pattern.bob}"/>
+			    <include name="${pattern.server.file}"/>
+				<!--include name="${pattern.server.e2e}"/-->
+				<include name="${pattern.schema}"/>
+				<include name="${pattern.codegen}"/>
+				<include name="${pattern.adminapi}"/>
+				<include name="${pattern.clientapi}"/>
+				<include name="${pattern.afxobjectc}"/>
+				<include name="${pattern.dsapi}"/>
+				<include name="eclipse.log"/>
+			</fileset>
+		</delete>
+	</target>
+		
+	<target name="rebuild.uep" depends="get.api.version.old, rebuild.eclipse, get.api.version.new" if="api.version.new">	
+		<replace file="${eclipse}/starteclipse-build.bat" token="${api.version.old}" value="${api.version.new}"/>
+	</target>
+	
+	<target name="rebuild.server" depends="get.server.name.new, stop.server" if="server.name.new">	
+		<property name="server" location="${base}/${server.name.new}"/>
+		<property name="server.bin" location="${server}/bin"/>
+		<property name="server.lib" location="${server}/lib"/>
+		<property name="server.lib.ext" location="${server}/lib/ext"/>
+		<property name="server.lic" location="${server}/licenses"/>
+		
+		<unzip src="${base}/${server.name.new}.zip" dest="${server}"/>
+		<!-- copy 3rd-party libs -->
+		<copy todir="${server.lib.ext}">
+			<fileset dir="${base}/Depot">
+				<!-- JDBC -->
+				<include name="db2jcc.jar"/>
+				<include name="db2jcc_license_cu.jar"/>
+				<include name="ojdbc14.jar"/>
+				<include name="sqljdbc4.jar"/>
+				<!-- SAP -->
+				<include name="sapjco.jar"/>				
+			</fileset>
+		</copy>
+		<copy todir="${server.lib}">
+			<fileset dir="${base}/Depot">
+				<!-- SAP -->
+				<include name="sapjcorfc.dll"/>
+				<include name="librfc32.dll"/>				
+			</fileset>
+		</copy>		
+		<exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c set-password.bat -username ${server.username} -pwd ${server.password}"/>
+		</exec>
+		<sleep minutes="1"/>
+		<exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c configure-mms.bat uepet2-test"/>
+		</exec>
+		<!-- update license -->
+		<copy file="${base}/Depot/SUP_CP_unlimited_unserved.lic" todir="${server.lic}"/>
+		<exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c license.bat EE CP 100"/>
+		</exec>
+		<!-- exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c register-dsn.bat"/>
+		</exec -->
+		<!-- exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c register-sampledb-dsn.bat"/>
+		</exec -->
+		<sleep minutes="10"/>
+		<exec dir="${server.bin}" executable="cmd" os="${os.name}">
+			<arg line="/c start-unwired-server.bat -opends -sampledb"/>
+		</exec>
+	</target>
+	
+	<target name="stop.server" depends="get.server.name.old" if="server.name.old">		
+		<property name="server.bin.old" location="${base}/${server.name.old}/bin"/>		
+		<exec dir="${server.bin.old}" executable="cmd" os="${os.name}" failifexecutionfails="false">
+			<arg line="/c stop-unwired-server.bat"/>
+		</exec>
+		<!-- wait till server is stopped completely -->
+		<sleep minutes="5"/>
+		<!-- delete old server-->
+		<delete dir="${base}/${server.name.old}" failonerror="false"/>
+	</target>
+	
+	<target name="get.server.name.old" if="server.name.new">
+		<!-- get previous server name -->
+		<dirset dir="${base}" id="server.dir">
+			<include name="${pattern.server.dir}"/>
+		</dirset>
+		<pathconvert property="server.name.old" refid="server.dir" targetos="windows">
+			<map from="${base}/" to=""/>
+		</pathconvert>
+		<echo>server.name.old: ${server.name.old}</echo>
+	</target>
+	
+	<target name="get.server.name.new" if="download.server.succeed">		
+		<!-- get latest server name -->
+		<fileset dir="${base}" id="server.file">
+			<include name="${pattern.server.file}"/>
+		</fileset>
+		<pathconvert property="server.name.new.file" refid="server.file" targetos="windows">
+			<map from="${base}/" to=""/>
+		</pathconvert>
+		<!-- truncate .zip suffix -->
+		<loadresource property="server.name.new">
+			<propertyresource name="server.name.new.file"/>
+			<filterchain>
+				<tokenfilter>
+					<stringtokenizer/>
+					<replacestring from=".zip" to=""/>
+				</tokenfilter>
+			</filterchain>
+		</loadresource>
+		<echo>server.name.new: ${server.name.new}</echo>
+	</target>
+	
+	<target name="get.api.version.old">			
+		<!-- get previous api build number -->
+		<loadfile property="api.version.old" srcfile="${eclipse}/starteclipse-build.bat">
+			<filterchain>
+				<linecontains>
+					<contains value="${djc}"/>
+				</linecontains>
+				<striplinebreaks/>
+				<tokenfilter>
+					<stringtokenizer/>
+					<containsstring contains="${djc}"/>
+				</tokenfilter>
+				<tokenfilter>
+					<stringtokenizer delims="_"/>
+					<containsstring contains="${sup.version}"/>
+					<deletecharacters chars='"'/>
+				</tokenfilter>
+			</filterchain>			
+		</loadfile>
+		<echo>api.version.old: ${api.version.old}</echo>
+	</target>
+	
+	<target name="rebuild.eclipse" if="download.uep.succeed">	
+		<exec dir="${ant.home}" executable="cmd" os="${os.name}">
+			<arg line="/c rebuild.eclipse.bat"/>
+		</exec>		
+	</target>
+	
+	<target name="get.api.version.new" if="download.uep.succeed">
+		<!-- get latest api build number -->
+		<dirset dir="${uep}/plugins" id="api.dir">
+			<include name="${pattern.toolingapi}"/>
+		</dirset>
+		<pathconvert property="api.version.new.dir" refid="api.dir" targetos="windows"/>
+		<loadresource property="api.version.new">
+			<propertyresource name="api.version.new.dir"/>
+			<filterchain>
+				<tokenfilter>
+					<stringtokenizer delims="_"/>
+					<containsstring contains="${sup.version}"/>	
+				</tokenfilter>
+			</filterchain>
+		</loadresource>
+		<echo>api.version.new: ${api.version.new}</echo>
+	</target>	
+</project>
