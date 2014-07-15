@@ -57,7 +57,7 @@ public enum EnumA
         /** The constructor method of an enum can only access static final constants */
         System.out.println(finalId);
 
-        System.out.println("Consturcting " + name);
+        System.out.println("Constructing " + name);
     }
 
     public abstract int getLength();
