@@ -5,7 +5,7 @@
  * All rights reserved.                                    
  */
 
-package log.test;
+package log;
 
 import java.io.IOException;
 import java.io.OutputStream;

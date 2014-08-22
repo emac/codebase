@@ -2,7 +2,7 @@
  * Created on Jul 8, 2010 Copyright (c) eBay, Inc. 2010 All rights reserved.
  */
 
-package json.test;
+package json;
 
 import static org.junit.Assert.assertTrue;
 import json.ClassB;
@@ -18,7 +18,7 @@ import org.junit.Test;
 /**
  * @author bishen
  */
-public class TestJson extends TestCase
+public class JsonTest extends TestCase
 {
 
     private Root root;
