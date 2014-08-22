@@ -74,7 +74,8 @@ public class Main
         */
     }
 
-    private enum MyEnum
+    @SuppressWarnings("unused")
+	private enum MyEnum
     {
         A, B;
     }

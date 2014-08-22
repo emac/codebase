@@ -7,6 +7,7 @@ package io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -18,10 +19,10 @@ public class FileTests
 
     @Test(expected = FileNotFoundException.class)
     public void testReadHttpFile()
-            throws FileNotFoundException
+            throws IOException
     {
         File httpFile = new File("http://maven.apache.org/maven-v4_0_0.xsd");
-        new FileInputStream(httpFile);
+        new FileInputStream(httpFile).close();;
     }
 
 }

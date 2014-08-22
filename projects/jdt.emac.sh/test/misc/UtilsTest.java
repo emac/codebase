@@ -13,7 +13,8 @@ import org.junit.Test;
 public class UtilsTest
 {
 
-    @Test
+    @SuppressWarnings("static-access")
+	@Test
     public void testGreet()
     {
         Assert.assertTrue(UtilsB.greet().endsWith(UtilsB.class.getName()));

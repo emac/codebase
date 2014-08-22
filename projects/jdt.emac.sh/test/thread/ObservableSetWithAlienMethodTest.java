@@ -9,7 +9,6 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import thread.ObservableSetWithAlienMethod;
 import thread.ObservableSetWithAlienMethod.SetObserver;
 
 /**
@@ -21,7 +20,7 @@ public class ObservableSetWithAlienMethodTest
     @Test(expected = ConcurrentModificationException.class)
     public void testAlienMethod()
     {
-        ObservableSetWithAlienMethod<Integer> set = new ObservableSetWithAlienMethod(new HashSet<Integer>());
+        ObservableSetWithAlienMethod<Integer> set = new ObservableSetWithAlienMethod<Integer>(new HashSet<Integer>());
         set.addObserver(new SetObserver<Integer>()
         {
             @Override

@@ -10,7 +10,8 @@ package generic;
 public class GenericA
 {
 
-    public <T> T getProxy()
+    @SuppressWarnings("unchecked")
+	public <T> T getProxy()
     {
         Object obj = new Object();
         return (T) obj;
