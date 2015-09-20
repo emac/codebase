@@ -1,0 +1,51 @@
+#!/bin/bash
+
+export JAVA_HOME=/opt/jdk1.7.0_55
+export TOMCAT_HOME=/opt/apache-tomcat-7.0.53
+export WEBAPPS=/dyne/wwwroot
+export BACKUP=/dyne/lost+found
+
+echo backup old war
+if [[ -f $WEBAPPS/$2 ]]
+then
+  cd $BACKUP
+  today=`date +"%Y%m%d"`
+  if [[ ! -d $today ]]
+  then
+    mkdir $today
+  fi
+  cd $today
+  if [[ ! -f $2 ]]
+  then
+    cp $WEBAPPS/$2 .
+  fi
+fi
+
+cd $TOMCAT_HOME
+echo check if tomcat is up
+tomcat_pid=`ps -f | grep $TOMCAT_HOME | sed -n '1p' | awk '{print $2}'`
+if [[ $tomcat_pid ]]
+then
+  echo shut down tomcat
+  bin/shutdown.sh
+
+  echo wait till tomcat is down
+  sleep 30
+
+  tomcat_pid=`ps -f | grep $TOMCAT_HOME | sed -n '1p' | awk '{print $2}'`
+  if [[ $tomcat_pid ]]
+  then
+    echo tomcat is still alive, pid: $tomcat_pid
+    echo kill tomcat process
+    kill -9 $tomcat_pid
+  fi
+fi
+
+echo delete old war
+rm -rf $WEBAPPS/${2%.war}*
+
+echo copy new war
+cp $1/$2 $WEBAPPS/
+
+echo start tomcat
+bin/startup.sh
