@@ -9,7 +9,7 @@ object Collection extends App {
   println('e' +: l1)
 
   // stream
-  var st = 'a' #:: 'b' #:: 'c' #:: Stream.Empty
+  val st = 'a' #:: 'b' #:: 'c' #:: Stream.Empty
   println(st)
 
   def fibFrom(a: Int, b: Int): Stream[Int] = a #:: fibFrom(b, a + b)
@@ -20,8 +20,8 @@ object Collection extends App {
   println(1 to 4 by 2)
 
   // set
-  var s1: Set[Any] = Set(1, 2, 3)
-  var s2: Set[Any] = Set('a', 'b', 'c')
+  val s1: Set[Any] = Set(1, 2, 3)
+  val s2: Set[Any] = Set('a', 'b', 'c')
   println(s1 ++ s2)
   println(s1 & s2)
 
@@ -34,4 +34,10 @@ object Collection extends App {
 
   var coll = List(1, 2, 3)
   lazyMap(coll, tran) foreach println
+
+  // diff
+  val d1 = List(1, 2, 3)
+  val d2 = List(4, 5, 2)
+  println(d1 diff d2)
+  println(d2 diff d1)
 }
