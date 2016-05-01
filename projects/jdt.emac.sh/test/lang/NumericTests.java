@@ -26,6 +26,8 @@ public class NumericTests
 
         bookingId = (((10L * 100 + year) * 100 + month) * 100 + day) * 10000;
         Assert.assertTrue(101111110001L == bookingId + 1);
+
+        Assert.assertFalse(new Integer(1) == new Integer(1));
     }
 
 }

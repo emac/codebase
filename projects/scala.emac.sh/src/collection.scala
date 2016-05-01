@@ -1,3 +1,6 @@
+import scala.collection.JavaConversions._
+import scala.collection._
+
 object Collection extends App {
   // list
   println('a' :: 'b' :: 'c' :: Nil)
@@ -13,6 +16,7 @@ object Collection extends App {
   println(st)
 
   def fibFrom(a: Int, b: Int): Stream[Int] = a #:: fibFrom(b, a + b)
+
   println(fibFrom(1, 1).take(7).toList)
 
   // range
@@ -40,4 +44,23 @@ object Collection extends App {
   val d2 = List(4, 5, 2)
   println(d1 diff d2)
   println(d2 diff d1)
+
+  val m = Map("a" -> 1, "b" -> 2)
+  m.foreach((e: (String, Int)) => {
+    println(e._1 + e._2)
+  })
+
+  // scala <-> java
+  val jList: java.util.List[Int] = Seq(1, 2, 3)
+  val sSeq: Seq[Int] = jList
+  val jMap: java.util.Map[String, Int] = Map("a"->1)
+  val sMap: Map[String, Int] = jMap
+
+  // sliding
+  val seq = Range(1, 100).map { i => s"id$i" }
+  // work
+  seq.sliding(10, 10).foreach(_.foreach(println(_)))
+//  seq.sliding(10, 10).foreach( grp => {println(grp.head)})
+  // doesn't work
+  seq.sliding(10, 10).map(_.foreach(println(_)))
 }
