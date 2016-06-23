@@ -1,0 +1,16 @@
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'maven-publish'
+
+group = 'cn.emac'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
