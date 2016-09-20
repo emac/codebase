@@ -1,18 +1,24 @@
 array = {"Lua", "Tutorial"}
 
+if #array == 1 then
+  print(1)
+elseif #array == 2 then
+  print(2)
+else
+  print("?")
+end
+
 for key,value in ipairs(array) 
 do
   print(key, value)
 end
 
 function square(iteratorMaxCount,currentNumber)
-
   if currentNumber<iteratorMaxCount
   then
     currentNumber = currentNumber+1
     return currentNumber, currentNumber*currentNumber
   end
-
 end
 
 for i,n in square,3,0

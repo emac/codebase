@@ -1,4 +1,8 @@
 #!groovy
+import groovy.transform.Undefined
+
+foo = ""
+println foo == ""
 
 println 'Groovy' =~ 'Groovy'
 println 'Groovy' ==~ 'Groovy'
@@ -15,3 +19,5 @@ def hello(firstName, String lastName = null) {
 
 hello 'emac'
 hello 'emac', 'shen'
+
+println Undefined.isUndefined("java.lang.Boolean")
