@@ -1,11 +1,14 @@
 package java8;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
+
+import static java.time.ZoneOffset.UTC;
 
 /**
  * @author Emac
@@ -120,5 +123,15 @@ public class TimeTests {
 
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(now, currentZone);
         System.out.println("Zoned date: " + zonedDateTime);
+    }
+
+    @Test
+    public void testOffsetDateTime() {
+        Instant instant = Instant.ofEpochMilli(1494518400000L);
+        OffsetDateTime date = OffsetDateTime.ofInstant(instant, ZoneId.systemDefault());
+        OffsetDateTime date2 = OffsetDateTime.ofInstant(instant, UTC);
+        System.out.println(date);
+        System.out.println(date2);
+        Assert.assertNotEquals(date, date2);
     }
 }
