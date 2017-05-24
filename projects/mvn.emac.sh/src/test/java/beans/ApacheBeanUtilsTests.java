@@ -5,24 +5,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
 
 /**
  * @author Emac
  * @since 2017-05-24
  */
-public class ApacheBeanUtilsTests {
+public class ApacheBeanUtilsTests extends BaseBeanUtilsTests {
 
     @Test
     public void testJava8() throws InvocationTargetException, IllegalAccessException {
-        Plain srcPlain = new Plain();
-        srcPlain.setContent("hello");
-        Opt srcOpt = new Opt();
-        srcOpt.setContent(Optional.of("hello"));
-        Opt srcOptEmpty = new Opt();
         // plain -> plain
         Plain targetPlain = new Plain();
         BeanUtils.copyProperties(targetPlain, srcPlain);
+        Assert.assertEquals(SAMPLE, targetPlain.getContent());
 
         // plain -> opt
         Opt targetOpt = new Opt();
@@ -35,7 +30,9 @@ public class ApacheBeanUtilsTests {
         // opt -> opt
         targetOpt = new Opt();
         BeanUtils.copyProperties(targetOpt, srcOpt);
+        Assert.assertTrue(targetOpt.getContent().isPresent());
         BeanUtils.copyProperties(targetOpt, srcOptEmpty);
+        Assert.assertFalse(targetOpt.getContent().isPresent());
 
         // opt -> plain
         targetPlain = new Plain();
