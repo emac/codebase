@@ -1,6 +1,6 @@
 package beans;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Optional;
 
@@ -16,7 +16,7 @@ public class BaseBeanUtilsTests {
 
     protected Opt srcOptEmpty;
 
-    @Before
+    @BeforeEach
     public void before() {
         srcPlain = new Plain();
         srcPlain.setContent("hello");
