@@ -4,16 +4,14 @@
 
 package json;
 
-import static org.junit.Assert.assertTrue;
-import json.ClassB;
-import json.Root;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
-
 import org.apache.xmlbeans.impl.tool.XSTCTester.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author bishen
@@ -26,15 +24,15 @@ public class JsonTest extends TestCase
     @Before
     public void setUp()
     {
-        this.root = new Root();
+        root = new Root();
         ClassB b = new ClassB();
-        this.root.setChild(b);
+        root.setChild(b);
     }
 
     @Test
     public void testToJava()
     {
-        String jsonTxt = JSONObject.fromObject(this.root).toString();
+        String jsonTxt = JSONObject.fromObject(root).toString();
 
         JSONObject jsonObj = (JSONObject) JSONSerializer.toJSON(jsonTxt);
         JsonConfig jsonConfig = new JsonConfig();
@@ -42,7 +40,7 @@ public class JsonTest extends TestCase
 
         Root newRoot = (Root) JSONSerializer.toJava(jsonObj, jsonConfig);
 
-        assertTrue(newRoot.getChild() instanceof ClassB);
+        assertTrue(newRoot.getChild() instanceof ClassA);
     }
 
 }
