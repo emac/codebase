@@ -1,8 +1,8 @@
 package beans;
 
+import jodd.bean.BeanCopy;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -10,33 +10,32 @@ import java.lang.reflect.InvocationTargetException;
  * @author Emac
  * @since 2017-05-24
  */
-public class SpringBeanUtilsTests extends BaseBeanUtilsTests {
+public class JodaBeanCopyTests extends BaseBeanUtilsTests {
 
     @Test
     public void testJava8() throws InvocationTargetException, IllegalAccessException {
         // plain -> plain
         Plain targetPlain = new Plain();
-        BeanUtils.copyProperties(srcPlain, targetPlain);
+        BeanCopy.beans(srcPlain, targetPlain).copy();
         Assert.assertEquals(SAMPLE, targetPlain.getContent());
 
         // plain -> opt 类型不同则跳过
         Opt targetOpt = new Opt();
-        BeanUtils.copyProperties(srcPlain, targetOpt);
+        BeanCopy.beans(srcPlain, targetOpt).copy();
         Assert.assertFalse(targetOpt.getContent().isPresent());
 
         // opt -> opt
         targetOpt = new Opt();
-        BeanUtils.copyProperties(srcOpt, targetOpt);
+        BeanCopy.beans(srcOpt, targetOpt).copy();
         Assert.assertTrue(targetOpt.getContent().isPresent());
-        BeanUtils.copyProperties(srcOptEmpty, targetOpt);
+        BeanCopy.beans(srcOptEmpty, targetOpt).copy();
         Assert.assertFalse(targetOpt.getContent().isPresent());
 
-        // opt -> plain 类型不同则跳过
+        // opt -> plain 类型不同则跳过，但如果目标属性是String，则调用源属性的toString方法
         targetPlain = new Plain();
-        BeanUtils.copyProperties(srcOpt, targetPlain);
-        Assert.assertNull(targetPlain.getContent());
-        BeanUtils.copyProperties(srcOptEmpty, targetPlain);
-        Assert.assertNull(targetPlain.getContent());
+        BeanCopy.beans(srcOpt, targetPlain).copy();
+        Assert.assertEquals("Optional[hello]", targetPlain.getContent());
+        BeanCopy.beans(srcOptEmpty, targetPlain).copy();
+        Assert.assertEquals("Optional.empty", targetPlain.getContent());
     }
 }
-

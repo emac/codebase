@@ -19,7 +19,7 @@ public class ApacheBeanUtilsTests extends BaseBeanUtilsTests {
         BeanUtils.copyProperties(targetPlain, srcPlain);
         Assert.assertEquals(SAMPLE, targetPlain.getContent());
 
-        // plain -> opt
+        // plain -> opt 类型不同则抛错
         Opt targetOpt = new Opt();
         try {
             BeanUtils.copyProperties(targetOpt, srcPlain);
@@ -34,7 +34,7 @@ public class ApacheBeanUtilsTests extends BaseBeanUtilsTests {
         BeanUtils.copyProperties(targetOpt, srcOptEmpty);
         Assert.assertFalse(targetOpt.getContent().isPresent());
 
-        // opt -> plain
+        // opt -> plain 类型不同则抛错，但如果目标属性是String，则调用源属性的toString方法
         targetPlain = new Plain();
         BeanUtils.copyProperties(targetPlain, srcOpt);
         Assert.assertEquals("Optional[hello]", targetPlain.getContent());

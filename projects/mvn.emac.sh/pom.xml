@@ -53,6 +53,11 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-bean</artifactId>
+            <version>3.7.1</version>
+        </dependency>
 
         <!-- logging -->
         <dependency>
