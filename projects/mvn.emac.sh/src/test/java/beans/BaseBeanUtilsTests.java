@@ -10,8 +10,6 @@ import java.util.Optional;
  */
 public class BaseBeanUtilsTests {
 
-    protected final String SAMPLE = "hello";
-
     protected Plain srcPlain;
 
     protected Opt srcOpt;
@@ -21,9 +19,9 @@ public class BaseBeanUtilsTests {
     @Before
     public void before() {
         srcPlain = new Plain();
-        srcPlain.setContent(SAMPLE);
+        srcPlain.setContent("hello");
         srcOpt = new Opt();
-        srcOpt.setContent(Optional.of(SAMPLE));
+        srcOpt.setContent(Optional.of("hello"));
         srcOptEmpty = new Opt();
     }
 }

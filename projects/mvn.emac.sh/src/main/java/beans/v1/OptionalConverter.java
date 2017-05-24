@@ -32,6 +32,9 @@ public class OptionalConverter extends AbstractConverter {
     @Override
     protected <T> T convertToType(Class<T> type, Object value) throws Throwable {
         if (Optional.class.equals(type)) {
+            if (value instanceof Optional) {
+                return type.cast(value);
+            }
             return type.cast(Optional.ofNullable(value));
         }
 

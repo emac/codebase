@@ -17,7 +17,7 @@ public class BeansV1Tests extends BaseBeanUtilsTests {
         // plain -> plain
         Plain targetPlain = new Plain();
         Beans.copyProperties(srcPlain, targetPlain);
-        Assert.assertEquals(SAMPLE, targetPlain.getContent());
+        Assert.assertEquals(srcPlain.getContent(), targetPlain.getContent());
 
         // plain -> opt 类型不同则抛错
         Opt targetOpt = new Opt();
@@ -27,14 +27,14 @@ public class BeansV1Tests extends BaseBeanUtilsTests {
         // opt -> opt
         targetOpt = new Opt();
         Beans.copyProperties(srcOpt, targetOpt);
-        Assert.assertTrue(targetOpt.getContent().isPresent());
+        Assert.assertEquals(srcOpt.getContent(), targetOpt.getContent());
         Beans.copyProperties(srcOptEmpty, targetOpt);
-        Assert.assertFalse(targetOpt.getContent().isPresent());
+        Assert.assertEquals(srcOptEmpty.getContent(), targetOpt.getContent());
 
         // opt -> plain 类型不同则抛错，但如果目标属性是String，则调用源属性的toString方法
         targetPlain = new Plain();
         Beans.copyProperties(srcOpt, targetPlain);
-        Assert.assertEquals("hello", targetPlain.getContent());
+        Assert.assertEquals(srcOpt.getContent().get(), targetPlain.getContent());
         Beans.copyProperties(srcOptEmpty, targetPlain);
         Assert.assertNull(targetPlain.getContent());
     }
