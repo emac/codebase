@@ -17,7 +17,7 @@ public class SpringBeanUtilsTests extends BaseBeanUtilsTests {
         // plain -> plain
         Plain targetPlain = new Plain();
         BeanUtils.copyProperties(srcPlain, targetPlain);
-        Assertions.assertEquals(srcPlain.getContent(), targetPlain.getContent());
+        Assertions.assertEquals(srcPlain, targetPlain);
 
         // plain -> opt 类型不同则跳过
         Opt targetOpt = new Opt();
@@ -27,9 +27,9 @@ public class SpringBeanUtilsTests extends BaseBeanUtilsTests {
         // opt -> opt
         targetOpt = new Opt();
         BeanUtils.copyProperties(srcOpt, targetOpt);
-        Assertions.assertEquals(srcOpt.getContent(), targetOpt.getContent());
+        Assertions.assertEquals(srcOpt, targetOpt);
         BeanUtils.copyProperties(srcOptEmpty, targetOpt);
-        Assertions.assertEquals(srcOptEmpty.getContent(), targetOpt.getContent());
+        Assertions.assertEquals(srcOptEmpty, targetOpt);
 
         // opt -> plain 类型不同则跳过
         targetPlain = new Plain();

@@ -17,7 +17,7 @@ public class JodaBeanCopyTests extends BaseBeanUtilsTests {
         // plain -> plain
         Plain targetPlain = new Plain();
         BeanCopy.beans(srcPlain, targetPlain).copy();
-        Assertions.assertEquals(srcPlain.getContent(), targetPlain.getContent());
+        Assertions.assertEquals(srcPlain, targetPlain);
 
         // plain -> opt 类型不同则跳过
         Opt targetOpt = new Opt();
@@ -27,9 +27,9 @@ public class JodaBeanCopyTests extends BaseBeanUtilsTests {
         // opt -> opt
         targetOpt = new Opt();
         BeanCopy.beans(srcOpt, targetOpt).copy();
-        Assertions.assertEquals(srcOpt.getContent(), targetOpt.getContent());
+        Assertions.assertEquals(srcOpt, targetOpt);
         BeanCopy.beans(srcOptEmpty, targetOpt).copy();
-        Assertions.assertEquals(srcOptEmpty.getContent(), targetOpt.getContent());
+        Assertions.assertEquals(srcOptEmpty, targetOpt);
 
         // opt -> plain 类型不同则跳过，但如果目标属性是String，则调用源属性的toString方法
         targetPlain = new Plain();
