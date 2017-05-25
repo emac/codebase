@@ -1,4 +1,4 @@
-package beans.v1;
+package beans.converters;
 
 import org.apache.commons.beanutils.converters.AbstractConverter;
 

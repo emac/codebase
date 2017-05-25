@@ -1,6 +1,8 @@
-package beans.v1;
+package beans.v2;
 
 import beans.converters.OptionalConverter;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ContextClassLoaderLocal;
 
@@ -19,12 +21,18 @@ public class Beans {
         // Creates the default instance used when the context classloader is unavailable
         @Override
         protected BeanUtilsBean initialValue() {
-            BeanUtilsBean beanUtilsBean = new BeanUtilsBean();
+            // 创建cglib代理
+            BeanUtilsBean beanUtilsBean = (BeanUtilsBean) _createProxy(BeanUtilsBean.class, new OptionalUnpacker());
             // 注册Optional Converter
             beanUtilsBean.getConvertUtils().register(new OptionalConverter(), Optional.class);
-            // 替换默认的String Converter
-            beanUtilsBean.getConvertUtils().register(new OptionalStringConverter(), String.class);
             return beanUtilsBean;
+        }
+
+        private Object _createProxy(Class targetClass, MethodInterceptor callback) {
+            Enhancer enhancer = new Enhancer();
+            enhancer.setSuperclass(targetClass);
+            enhancer.setCallback(callback);
+            return enhancer.create();
         }
     };
 

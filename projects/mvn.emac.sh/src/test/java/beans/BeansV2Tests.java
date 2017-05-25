@@ -1,6 +1,6 @@
 package beans;
 
-import beans.v1.Beans;
+import beans.v2.Beans;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author Emac
  * @since 2017-05-24
  */
-public class BeansV1Tests extends BaseBeanUtilsTests {
+public class BeansV2Tests extends BaseBeanUtilsTests {
 
     @Test
     public void testJava8() throws InvocationTargetException, IllegalAccessException {
