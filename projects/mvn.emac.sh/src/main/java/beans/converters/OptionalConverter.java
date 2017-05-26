@@ -5,11 +5,7 @@ import org.apache.commons.beanutils.converters.AbstractConverter;
 import java.util.Optional;
 
 /**
- * 添加{@code Optional}类型的属性值转换。转换规则：
- * <ul>
- * <li>如果不为空，则先取出{@code Optional}对象中的值，然后调用{@code convertToType}进行转换</li>
- * <li>如果为空，则返回{@code null}</li>
- * </ul>
+ * 添加{@code Optional}类型的属性值转换。转换规则：value -> Optional.ofNullable(value)
  *
  * @author Emac
  * @since 2017-05-24
