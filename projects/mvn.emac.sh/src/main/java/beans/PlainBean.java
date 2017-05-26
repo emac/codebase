@@ -7,7 +7,7 @@ import lombok.Data;
  * @since 2017-05-24
  */
 @Data
-public class Plain {
+public class PlainBean {
 
     private String content;
 }

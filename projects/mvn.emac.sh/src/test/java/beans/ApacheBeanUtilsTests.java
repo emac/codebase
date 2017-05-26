@@ -13,33 +13,33 @@ import java.lang.reflect.InvocationTargetException;
 public class ApacheBeanUtilsTests extends BaseBeanUtilsTests {
 
     @Test
-    public void testJava8() throws InvocationTargetException, IllegalAccessException {
+    public void testJava8Optional() throws InvocationTargetException, IllegalAccessException {
         // plain -> plain
-        Plain targetPlain = new Plain();
-        BeanUtils.copyProperties(targetPlain, srcPlain);
-        Assertions.assertEquals(srcPlain, targetPlain);
+        PlainBean targetPlainBean = new PlainBean();
+        BeanUtils.copyProperties(targetPlainBean, srcPlainBean);
+        Assertions.assertEquals(srcPlainBean, targetPlainBean);
 
         // plain -> opt 类型不同则抛错
-        Opt targetOpt = new Opt();
+        OptBean targetOptBean = new OptBean();
         try {
-            BeanUtils.copyProperties(targetOpt, srcPlain);
+            BeanUtils.copyProperties(targetOptBean, srcPlainBean);
         } catch (Exception e) {
             Assertions.assertTrue(e instanceof IllegalArgumentException);
         }
 
         // opt -> opt
-        targetOpt = new Opt();
-        BeanUtils.copyProperties(targetOpt, srcOpt);
-        Assertions.assertEquals(srcOpt, targetOpt);
-        BeanUtils.copyProperties(targetOpt, srcOptEmpty);
-        Assertions.assertEquals(srcOptEmpty, targetOpt);
+        targetOptBean = new OptBean();
+        BeanUtils.copyProperties(targetOptBean, srcOptBean);
+        Assertions.assertEquals(srcOptBean, targetOptBean);
+        BeanUtils.copyProperties(targetOptBean, srcOptBeanEmpty);
+        Assertions.assertEquals(srcOptBeanEmpty, targetOptBean);
 
         // opt -> plain 类型不同则抛错，但如果目标属性是String，则调用源属性的toString方法
-        targetPlain = new Plain();
-        BeanUtils.copyProperties(targetPlain, srcOpt);
-        Assertions.assertEquals("Optional[hello]", targetPlain.getContent());
-        BeanUtils.copyProperties(targetPlain, srcOptEmpty);
-        Assertions.assertEquals("Optional.empty", targetPlain.getContent());
+        targetPlainBean = new PlainBean();
+        BeanUtils.copyProperties(targetPlainBean, srcOptBean);
+        Assertions.assertEquals("Optional[hello]", targetPlainBean.getContent());
+        BeanUtils.copyProperties(targetPlainBean, srcOptBeanEmpty);
+        Assertions.assertEquals("Optional.empty", targetPlainBean.getContent());
     }
 }
 

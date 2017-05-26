@@ -13,29 +13,29 @@ import java.lang.reflect.InvocationTargetException;
 public class JodaBeanCopyTests extends BaseBeanUtilsTests {
 
     @Test
-    public void testJava8() throws InvocationTargetException, IllegalAccessException {
+    public void testJava8Optional() throws InvocationTargetException, IllegalAccessException {
         // plain -> plain
-        Plain targetPlain = new Plain();
-        BeanCopy.beans(srcPlain, targetPlain).copy();
-        Assertions.assertEquals(srcPlain, targetPlain);
+        PlainBean targetPlainBean = new PlainBean();
+        BeanCopy.beans(srcPlainBean, targetPlainBean).copy();
+        Assertions.assertEquals(srcPlainBean, targetPlainBean);
 
         // plain -> opt 类型不同则跳过
-        Opt targetOpt = new Opt();
-        BeanCopy.beans(srcPlain, targetOpt).copy();
-        Assertions.assertFalse(targetOpt.getContent().isPresent());
+        OptBean targetOptBean = new OptBean();
+        BeanCopy.beans(srcPlainBean, targetOptBean).copy();
+        Assertions.assertFalse(targetOptBean.getContent().isPresent());
 
         // opt -> opt
-        targetOpt = new Opt();
-        BeanCopy.beans(srcOpt, targetOpt).copy();
-        Assertions.assertEquals(srcOpt, targetOpt);
-        BeanCopy.beans(srcOptEmpty, targetOpt).copy();
-        Assertions.assertEquals(srcOptEmpty, targetOpt);
+        targetOptBean = new OptBean();
+        BeanCopy.beans(srcOptBean, targetOptBean).copy();
+        Assertions.assertEquals(srcOptBean, targetOptBean);
+        BeanCopy.beans(srcOptBeanEmpty, targetOptBean).copy();
+        Assertions.assertEquals(srcOptBeanEmpty, targetOptBean);
 
         // opt -> plain 类型不同则跳过，但如果目标属性是String，则调用源属性的toString方法
-        targetPlain = new Plain();
-        BeanCopy.beans(srcOpt, targetPlain).copy();
-        Assertions.assertEquals("Optional[hello]", targetPlain.getContent());
-        BeanCopy.beans(srcOptEmpty, targetPlain).copy();
-        Assertions.assertEquals("Optional.empty", targetPlain.getContent());
+        targetPlainBean = new PlainBean();
+        BeanCopy.beans(srcOptBean, targetPlainBean).copy();
+        Assertions.assertEquals("Optional[hello]", targetPlainBean.getContent());
+        BeanCopy.beans(srcOptBeanEmpty, targetPlainBean).copy();
+        Assertions.assertEquals("Optional.empty", targetPlainBean.getContent());
     }
 }

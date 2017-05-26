@@ -13,30 +13,30 @@ import java.lang.reflect.InvocationTargetException;
 public class SpringBeanUtilsTests extends BaseBeanUtilsTests {
 
     @Test
-    public void testJava8() throws InvocationTargetException, IllegalAccessException {
+    public void testJava8Optional() throws InvocationTargetException, IllegalAccessException {
         // plain -> plain
-        Plain targetPlain = new Plain();
-        BeanUtils.copyProperties(srcPlain, targetPlain);
-        Assertions.assertEquals(srcPlain, targetPlain);
+        PlainBean targetPlainBean = new PlainBean();
+        BeanUtils.copyProperties(srcPlainBean, targetPlainBean);
+        Assertions.assertEquals(srcPlainBean, targetPlainBean);
 
         // plain -> opt 类型不同则跳过
-        Opt targetOpt = new Opt();
-        BeanUtils.copyProperties(srcPlain, targetOpt);
-        Assertions.assertFalse(targetOpt.getContent().isPresent());
+        OptBean targetOptBean = new OptBean();
+        BeanUtils.copyProperties(srcPlainBean, targetOptBean);
+        Assertions.assertFalse(targetOptBean.getContent().isPresent());
 
         // opt -> opt
-        targetOpt = new Opt();
-        BeanUtils.copyProperties(srcOpt, targetOpt);
-        Assertions.assertEquals(srcOpt, targetOpt);
-        BeanUtils.copyProperties(srcOptEmpty, targetOpt);
-        Assertions.assertEquals(srcOptEmpty, targetOpt);
+        targetOptBean = new OptBean();
+        BeanUtils.copyProperties(srcOptBean, targetOptBean);
+        Assertions.assertEquals(srcOptBean, targetOptBean);
+        BeanUtils.copyProperties(srcOptBeanEmpty, targetOptBean);
+        Assertions.assertEquals(srcOptBeanEmpty, targetOptBean);
 
         // opt -> plain 类型不同则跳过
-        targetPlain = new Plain();
-        BeanUtils.copyProperties(srcOpt, targetPlain);
-        Assertions.assertNull(targetPlain.getContent());
-        BeanUtils.copyProperties(srcOptEmpty, targetPlain);
-        Assertions.assertNull(targetPlain.getContent());
+        targetPlainBean = new PlainBean();
+        BeanUtils.copyProperties(srcOptBean, targetPlainBean);
+        Assertions.assertNull(targetPlainBean.getContent());
+        BeanUtils.copyProperties(srcOptBeanEmpty, targetPlainBean);
+        Assertions.assertNull(targetPlainBean.getContent());
     }
 }
 

@@ -11,7 +11,7 @@ import static java.util.Optional.empty;
  * @since 2017-05-24
  */
 @Data
-public class Opt {
+public class OptBean {
 
     private Optional<String> content = empty();
 }

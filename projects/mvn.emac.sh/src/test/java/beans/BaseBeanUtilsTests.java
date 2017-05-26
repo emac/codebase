@@ -10,18 +10,30 @@ import java.util.Optional;
  */
 public class BaseBeanUtilsTests {
 
-    protected Plain srcPlain;
+    protected PlainBean srcPlainBean;
 
-    protected Opt srcOpt;
+    protected OptBean srcOptBean;
 
-    protected Opt srcOptEmpty;
+    protected OptBean srcOptBeanEmpty;
+
+    protected PlainPojo srcPlainPojo;
+
+    protected OptPojo srcOptPojo;
+
+    protected OptPojo srcOptPojoEmpty;
 
     @BeforeEach
     public void before() {
-        srcPlain = new Plain();
-        srcPlain.setContent("hello");
-        srcOpt = new Opt();
-        srcOpt.setContent(Optional.of("hello"));
-        srcOptEmpty = new Opt();
+        srcPlainBean = new PlainBean();
+        srcPlainBean.setContent("hello");
+        srcOptBean = new OptBean();
+        srcOptBean.setContent(Optional.of("hello"));
+        srcOptBeanEmpty = new OptBean();
+
+        srcPlainPojo = new PlainPojo();
+        srcPlainPojo.setContent("hello");
+        srcOptPojo = new OptPojo();
+        srcOptPojo.setContent(Optional.of("hello"));
+        srcOptPojoEmpty = new OptPojo();
     }
 }

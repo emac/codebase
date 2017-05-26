@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 /**
- * 扩展org.apache.commons.beanutils.BeanUtils支持{@code Optional}属性的复制。
+ * 扩展org.apache.commons.beanutils.BeanUtils支持{@code Optional}类型和非{@code Optional}类型的属性复制。
  *
  * @author Emac
  * @since 2017-05-24
