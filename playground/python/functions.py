@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 # Function definition is here
-def printinfo(name, age=35, *vars):
+def print_info(name, age=35, *vars):
     "This prints a passed info into this function"
     print("Name: ", name)
     print("Age ", age)
@@ -12,6 +13,6 @@ def printinfo(name, age=35, *vars):
 
 
 # Now you can call printinfo function
-printinfo(age=50, name="miki")
-printinfo(name="miki")
-printinfo("miki", 50, "Hello, ", "world!")
+print_info(age=50, name="miki")
+print_info(name="miki")
+print_info("miki", 50, "Hello, ", "world!")
