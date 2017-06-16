@@ -3,6 +3,8 @@
 
 import random
 
+AROUND_SHIFT = [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]]
+
 
 class Dot:
     """坐标点"""
@@ -75,53 +77,11 @@ class Map:
 
     def dots_around(self, x, y):
         around = []
-        if 0 < x < self.X:
-            around.append(Dot(x - 1, y))
-            around.append(Dot(x + 1, y))
-            if 0 < y < self.Y:
-                around.append(Dot(x - 1, y - 1))
-                around.append(Dot(x, y - 1))
-                around.append(Dot(x + 1, y - 1))
-
-                around.append(Dot(x - 1, y + 1))
-                around.append(Dot(x, y + 1))
-                around.append(Dot(x + 1, y + 1))
-            elif y == 0:
-                around.append(Dot(x - 1, y + 1))
-                around.append(Dot(x, y + 1))
-                around.append(Dot(x + 1, y + 1))
-            else:
-                around.append(Dot(x - 1, y - 1))
-                around.append(Dot(x, y - 1))
-                around.append(Dot(x + 1, y - 1))
-        elif x == 0:
-            around.append(Dot(x + 1, y))
-            if 0 < y < self.Y:
-                around.append(Dot(x, y - 1))
-                around.append(Dot(x + 1, y - 1))
-
-                around.append(Dot(x, y + 1))
-                around.append(Dot(x + 1, y + 1))
-            elif y == 0:
-                around.append(Dot(x, y + 1))
-                around.append(Dot(x + 1, y + 1))
-            else:
-                around.append(Dot(x, y - 1))
-                around.append(Dot(x + 1, y - 1))
-        else:
-            around.append(Dot(x - 1, y))
-            if 0 < y < self.Y:
-                around.append(Dot(x - 1, y - 1))
-                around.append(Dot(x, y - 1))
-
-                around.append(Dot(x - 1, y + 1))
-                around.append(Dot(x, y + 1))
-            elif y == 0:
-                around.append(Dot(x - 1, y + 1))
-                around.append(Dot(x, y + 1))
-            else:
-                around.append(Dot(x - 1, y - 1))
-                around.append(Dot(x, y - 1))
+        for s in AROUND_SHIFT:
+            x_ = x + s[0]
+            y_ = y + s[1]
+            if 0 <= x_ <= self.X and 0 <= y_ <= self.Y:
+                around.append(Dot(x_, y_))
         return around
 
     def count_alive_around(self, x, y):

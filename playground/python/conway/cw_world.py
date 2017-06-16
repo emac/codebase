@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from Tkinter import *
-from cw_model import *
+from cw_model_sample import *
 
 DELAY = 100
 DOT_SIZE = 10
@@ -37,6 +37,7 @@ class World(Canvas):
         print "Erase: %s, %s" % (d.x, d.y)
         if self.dots.has_key(d):
             self.delete(self.dots[d])
+            del self.dots[d]
 
     def draw(self, d):
         print "Draw: %s, %s" % (d.x, d.y)
@@ -56,8 +57,8 @@ class MyFrame(Frame):
 
 def main():
     # 读取地图
-    # map = init_map_from_file()
-    map = init_random_map()
+    map = init_map_from_file()
+    # map = init_random_map()
     # 初始化
     root = Tk()
     MyFrame(root, map)
