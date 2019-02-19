@@ -11,6 +11,9 @@ object Collection extends App {
   println(l1 :+ 'd')
   println('e' +: l1)
 
+  // flatMap
+  println(l1.flatMap(i => if (i > 1) Some(i) else None).length)
+
   // stream
   val st = 'a' #:: 'b' #:: 'c' #:: Stream.Empty
   println(st)
@@ -53,14 +56,14 @@ object Collection extends App {
   // scala <-> java
   val jList: java.util.List[Int] = Seq(1, 2, 3)
   val sSeq: Seq[Int] = jList
-  val jMap: java.util.Map[String, Int] = Map("a"->1)
+  val jMap: java.util.Map[String, Int] = Map("a" -> 1)
   val sMap: Map[String, Int] = jMap
 
   // sliding
   val seq = Range(1, 100).map { i => s"id$i" }
   // work
   seq.sliding(10, 10).foreach(_.foreach(println(_)))
-//  seq.sliding(10, 10).foreach( grp => {println(grp.head)})
+  //  seq.sliding(10, 10).foreach( grp => {println(grp.head)})
   // doesn't work
   seq.sliding(10, 10).map(_.foreach(println(_)))
 }

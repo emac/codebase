@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
@@ -82,13 +83,21 @@ public class TimeTests {
 
     @Test
     public void testDuration() {
+        // LocalTime
         LocalTime time1 = LocalTime.now();
         Duration twoHours = Duration.ofHours(2);
 
         LocalTime time2 = time1.plus(twoHours);
         Duration duration = Duration.between(time1, time2);
 
-        System.out.println("Duration: " + duration);
+        System.out.println("Duration: " + duration.toHours());
+
+        // Format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHH");
+        time1 = LocalTime.parse("17081614", formatter);
+        duration = Duration.between(time1, LocalTime.now());
+
+        System.out.println("Duration: " + duration.toHours());
     }
 
     @Test
