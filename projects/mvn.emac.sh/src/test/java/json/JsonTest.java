@@ -8,10 +8,11 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 import org.apache.xmlbeans.impl.tool.XSTCTester.TestCase;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * @author bishen
@@ -21,7 +22,7 @@ public class JsonTest extends TestCase
 
     private Root root;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         root = new Root();
