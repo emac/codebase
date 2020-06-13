@@ -7,18 +7,15 @@ package singleton;
 /**
  * @author bishen
  */
-public class ClassB
-{
+public class ClassB {
 
-    static
-    {
+    static {
         System.out.println("[ClassB] Static block - 1");
     }
-    
+
     private static final ClassB instance = new ClassB();
 
-    static
-    {
+    static {
         System.out.println(instance);
         System.out.println("[ClassB] Static block - 2");
     }
@@ -28,19 +25,16 @@ public class ClassB
         System.out.println("[ClassB] Non-static block");
     }
 
-    protected ClassB()
-    {
+    protected ClassB() {
         System.out.println("[ClassB] Constructor");
     }
 
-    public static ClassB getInstance()
-    {
+    public static ClassB getInstance() {
         System.out.println("[ClassB] getInstance()");
         return instance;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         System.out.println(ClassB.class);
         ClassB.getInstance();
     }

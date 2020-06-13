@@ -6,7 +6,7 @@ package generic;
  */
 public class StringContainer extends Container<String> {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new StringContainer().printClass();
     }
 }

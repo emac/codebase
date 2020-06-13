@@ -7,11 +7,9 @@ package misc;
 /**
  * @author bishen
  */
-public class UtilsA
-{
+public class UtilsA {
 
-    public static String greet()
-    {
+    public static String greet() {
         return "Greeting from " + UtilsA.class.getName();
     }
 

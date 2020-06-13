@@ -4,29 +4,25 @@
 
 package properties;
 
-import static org.junit.Assert.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author bishen
  */
-public class PropertiesTest
-{
+public class PropertiesTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testParse()
-            throws IOException
-    {
+            throws IOException {
         InputStream is = getClass().getResourceAsStream("sample.properties");
         Properties props = new Properties();
-        props.load(is);
-
-        assertTrue(props.size() == 26);
+        assertThrows(IllegalArgumentException.class, () -> props.load(is));
     }
-
 }

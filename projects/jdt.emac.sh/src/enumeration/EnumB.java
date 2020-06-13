@@ -9,43 +9,34 @@ import enumeration.EnumA.Lengthable;
 /**
  * @author bishen
  */
-public enum EnumB implements Lengthable
-{
+public enum EnumB implements Lengthable {
 
-    A("Apple")
-    {
+    A("Apple") {
         @Override
-        public int getLength()
-        {
+        public int getLength() {
             return A.name.length();
         }
     },
-    B("Boy")
-    {
+    B("Boy") {
         @Override
-        public int getLength()
-        {
+        public int getLength() {
             return B.name.length();
         }
     };
 
     private String name;
 
-    private EnumB(String name)
-    {
+    private EnumB(String name) {
         this.name = name;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         printLength(EnumB.class);
     }
 
     // composite generic usage
-    private static <T extends Enum<T> & Lengthable> void printLength(Class<T> lens)
-    {
-        for (Lengthable l : lens.getEnumConstants())
-        {
+    private static <T extends Enum<T> & Lengthable> void printLength(Class<T> lens) {
+        for (Lengthable l : lens.getEnumConstants()) {
             System.out.println(l.getLength());
         }
     }

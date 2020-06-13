@@ -1,7 +1,7 @@
 package jdk.j8;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 import static java.time.ZoneOffset.UTC;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * @author Emac
@@ -141,6 +142,6 @@ public class TimeTests {
         OffsetDateTime date2 = OffsetDateTime.ofInstant(instant, UTC);
         System.out.println(date);
         System.out.println(date2);
-        Assert.assertNotEquals(date, date2);
+        assertNotEquals(date, date2);
     }
 }

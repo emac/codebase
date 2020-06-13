@@ -1,12 +1,14 @@
 package concurrent;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Emac
@@ -26,7 +28,7 @@ public class ForkJoinPoolTests {
             threadnames.add(Thread.currentThread().getName());
         });
         threadnames.forEach(System.out::println);
-        Assert.assertEquals(Runtime.getRuntime().availableProcessors(), threadnames.size());
+        assertEquals(Runtime.getRuntime().availableProcessors(), threadnames.size());
 
         threadnames.clear();
 
@@ -41,6 +43,6 @@ public class ForkJoinPoolTests {
         })).get();
         pool.shutdown();
         threadnames.forEach(System.out::println);
-        Assert.assertTrue(threadnames.size() > Runtime.getRuntime().availableProcessors());
+        assertTrue(threadnames.size() > Runtime.getRuntime().availableProcessors());
     }
 }

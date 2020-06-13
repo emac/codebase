@@ -1,6 +1,7 @@
 package jdk.j8;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Emac
@@ -13,7 +14,7 @@ public class DefaultTests {
             System.out.println("I am a vehicle!");
         }
 
-        static void blowHorn(){
+        static void blowHorn() {
             System.out.println("Blowing horn!!!");
         }
     }
@@ -25,6 +26,7 @@ public class DefaultTests {
     }
 
     public class car implements vehicle, fourWheeler {
+        @Override
         public void print() {
             vehicle.super.print();
             System.out.println("I am a four wheeler car vehicle!");

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author bishen
  */
-public class JsonTest extends TestCase
+public class JsonTests extends TestCase
 {
 
     private Root root;

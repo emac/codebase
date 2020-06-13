@@ -1,7 +1,9 @@
 package lang;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Emac
@@ -10,22 +12,23 @@ import org.junit.Test;
 public class SynchronizationTests {
 
     @Test
-    public void testHello(){
+    public void testHello() {
         ClassU u = new ClassU();
-        Assert.assertEquals(2, u.hello());
+        assertEquals(2, u.hello());
 
         ClassT t = u;
-        Assert.assertEquals(2, t.hello());
+        assertEquals(2, t.hello());
     }
 
     public static class ClassT {
-        public int hello(){
+        public int hello() {
             return 1;
         }
     }
 
     public static class ClassU extends ClassT {
-        public synchronized int hello(){
+        @Override
+        public synchronized int hello() {
             return super.hello() + 1;
         }
     }

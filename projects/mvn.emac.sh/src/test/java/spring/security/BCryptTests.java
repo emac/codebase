@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Emac
  *
  */
-public class BCryptTest {
+public class BCryptTests {
 
 	@Test
 	public void testOpenBSD() {

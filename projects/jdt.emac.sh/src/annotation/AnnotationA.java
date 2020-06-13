@@ -14,8 +14,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface AnnotationA
-{
+public @interface AnnotationA {
 
     Class<? extends Exception> expectedException();
 

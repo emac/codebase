@@ -6,7 +6,7 @@ package generic;
  */
 public class Container<T> {
 
-    public void printClass(){
+    public void printClass() {
         System.out.println(getClass().getAnnotatedSuperclass());
     }
 }

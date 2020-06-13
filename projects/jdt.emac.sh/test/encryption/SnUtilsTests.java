@@ -1,17 +1,20 @@
 package encryption;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.stream.IntStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * @author Emac
  * @since 2016-03-26
  */
-public class SnUtilsTest {
+public class SnUtilsTests {
 
     @Test
     public void testEncrpt() {
@@ -19,8 +22,8 @@ public class SnUtilsTest {
         IntStream.range(1, 8192).forEach(seq -> {
             int cipher = SnUtils.encrypt(seq, (byte) 12);
             System.out.println(MessageFormat.format("{0} -> {1}", seq, cipher));
-            Assert.assertTrue(nums.add(cipher));
-            Assert.assertEquals(seq, SnUtils.decrypt(cipher, (byte) 12));
+            assertTrue(nums.add(cipher));
+            assertEquals(seq, SnUtils.decrypt(cipher, (byte) 12));
         });
     }
 }

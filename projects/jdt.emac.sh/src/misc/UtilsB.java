@@ -7,11 +7,9 @@ package misc;
 /**
  * @author bishen
  */
-public class UtilsB extends UtilsA
-{
+public class UtilsB extends UtilsA {
 
-    public static String greet()
-    {
+    public static String greet() {
         return "Greeting from " + UtilsB.class.getName();
     }
 

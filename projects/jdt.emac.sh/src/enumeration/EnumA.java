@@ -7,14 +7,11 @@ package enumeration;
 /**
  * @author bishen
  */
-public enum EnumA
-{
+public enum EnumA {
 
-    A("A")
-    {
+    A("A") {
         @Override
-        public int getLength()
-        {
+        public int getLength() {
             System.out.println(nonfinalLock);
             System.out.println(finalLock);
             System.out.println(nonfinalId);
@@ -22,29 +19,25 @@ public enum EnumA
             return A.name.length();
         }
     },
-    B("B")
-    {
+    B("B") {
         @Override
-        public int getLength()
-        {
+        public int getLength() {
             return B.name.length();
         }
     };
 
-    static
-    {
+    static {
         System.out.println("Static Block");
     }
 
-    static Object       nonfinalLock = new Object();
-    static final Object finalLock    = new Object();
-    static int          nonfinalId   = 1;
-    static final int    finalId      = 1;
+    static Object nonfinalLock = new Object();
+    static final Object finalLock = new Object();
+    static int nonfinalId = 1;
+    static final int finalId = 1;
 
-    private String      name;
+    private String name;
 
-    private EnumA(String name)
-    {
+    private EnumA(String name) {
         this.name = name;
 
         // Error
@@ -62,21 +55,19 @@ public enum EnumA
 
     public abstract int getLength();
 
-    /** The constructor method of an enum is always private */
+    /**
+     * The constructor method of an enum is always private
+     */
     /*
      * Error public EnumA(){ }
      */
-
-    public static void main(String[] args)
-    {
-        for (EnumA e : EnumA.values())
-        {
+    public static void main(String[] args) {
+        for (EnumA e : EnumA.values()) {
             System.out.println(e);
         }
     }
 
-    public interface Lengthable
-    {
+    public interface Lengthable {
         int getLength();
     }
 

@@ -4,25 +4,24 @@
 
 package io;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author bishen
  */
-public class FileTests
-{
+public class FileTests {
 
-    @Test(expected = FileNotFoundException.class)
+    @Test
     public void testReadHttpFile()
-            throws IOException
-    {
+            throws IOException {
         File httpFile = new File("http://maven.apache.org/maven-v4_0_0.xsd");
-        new FileInputStream(httpFile).close();;
+        assertThrows(FileNotFoundException.class, () -> new FileInputStream(httpFile).close());
     }
-
 }

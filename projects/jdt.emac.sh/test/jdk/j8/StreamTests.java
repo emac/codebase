@@ -1,6 +1,6 @@
 package jdk.j8;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;

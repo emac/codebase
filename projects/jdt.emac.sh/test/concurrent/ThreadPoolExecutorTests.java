@@ -1,6 +1,7 @@
 package concurrent;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @author Emac
  * @since 2016-09-21
  */
-public class ThreadPoolExecutorTest {
+public class ThreadPoolExecutorTests {
 
     @Test
     public void testMaximumPoolSize() throws InterruptedException {
