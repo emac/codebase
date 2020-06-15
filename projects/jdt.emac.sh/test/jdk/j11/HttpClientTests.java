@@ -2,8 +2,12 @@ package jdk.j11;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -22,6 +26,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 2020-06-06
  */
 public class HttpClientTests {
+
+    @Test
+    public void testOldGet() throws IOException {
+        var url = new URL("http://www.baidu.com");
+        var connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+        assertEquals(200, connection.getResponseCode());
+
+        var body = new StringBuilder();
+        var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        var line = "";
+        while ((line = reader.readLine()) != null) {
+            body.append(line);
+            body.append("\n");
+        }
+        reader.close();
+        connection.disconnect();
+        System.out.println(body.toString());
+    }
 
     @Test
     public void testGet() throws IOException, InterruptedException {
