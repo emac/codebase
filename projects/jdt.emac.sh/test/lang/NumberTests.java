@@ -7,13 +7,12 @@ package lang;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author emac
  */
-public class NumericTests {
+public class NumberTests {
 
     @Test
     public void testOverflow() {
@@ -26,7 +25,20 @@ public class NumericTests {
 
         bookingId = (((10L * 100 + year) * 100 + month) * 100 + day) * 10000;
         assertTrue(101111110001L == bookingId + 1);
+    }
 
-        assertFalse(new Integer(1) == new Integer(1));
+    @Test
+    public void testEquals() {
+        assertTrue((Integer) 100 == (Integer) 100);
+        assertFalse((Integer) 200 == (Integer) 200);
+        assertFalse(new Integer(100) == new Integer(100));
+    }
+
+    @Test
+    public void testTuple() {
+        assertThrows(NullPointerException.class, () -> {
+            Integer foo = null;
+            System.out.println((int) foo);
+        });
     }
 }
